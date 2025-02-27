@@ -1,0 +1,140 @@
+/* Remove scrolling */
+html, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+ul { list-style-type: none; }
+/* Root container */
+#root {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-top);
+}
+
+/* Global Variables */
+:root {
+  --accent: #b8fe1eff;
+  --dark: rgb(54, 54, 54);
+  --white: rgb(240, 244, 237);
+  --black: rgb(3, 3, 1);
+  --red: #a71d31ff;
+  --gradient-top: linear-gradient(0deg, var(--black), var(--dark));
+  font-family: "Kode Mono", monospace;
+}
+
+/* Canvas */
+#miCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* Play Button (Centered at Bottom) */
+#playButt {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 13;
+  padding: 10px;
+  width: 8vw;  /* Adjust size relative to screen */
+  height: 8vw; /* Keeps circular shape */
+  max-width: 80px; /* Prevents too large */
+  max-height: 80px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--black);
+  border: 3px solid var(--dark);
+  animation: fadeIn 3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabled {
+  opacity: 0.3;
+  animation: none;
+}
+
+/* Logo Animation */
+#logo {
+  margin: 0;
+  font-size: 1.5em;
+  animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+  50% { opacity: 0; }
+}
+
+/* Main Screen */
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Progress Bar */
+#barContainer {
+  position: absolute;
+  left: 10%;
+  bottom: 2vh;
+  width: 80%;
+  height: 1vh;
+  background-color: #888;
+  border-radius: 42%;
+  z-index: 22;
+  animation: fadeIn 3s ease-in;
+}
+
+#bar {
+  width: 10%;
+  height: 100%;
+  background-color: #a0ff10;
+  border-radius: 42%;
+  position: absolute;
+}
+
+#userdata {
+  position: absolute;
+  top: 3vh;
+  margin: 0;
+  padding: 0;
+  left: 3vh;
+  font-size: 2.5vh;
+}
+#text {
+  font-size: 3vh;
+}
+/* Centered Text and Input */
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  padding: 2vw;
+  color: var(--accent);
+  font-size: large;
+  text-align: center;
+  z-index: 1312;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
