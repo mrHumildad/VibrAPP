@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import PlayButt from './comps/PlayButt';
 import UserLogs from './comps/UserLogs';
@@ -19,6 +19,21 @@ function App() {
   const [so, setSo] = useState({ 
     notaBase: 0, numeroDeOctavas: 0, duracion: 0, aroma: "major", mainVol: 0.8, silencios: 0, numNubes: 8 
   });
+
+  useEffect(() => {
+    fetch("http://localhost:5000/user")
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        console.log("Fetched User Data:", data);
+        setUser(data.user);
+        setSo(data.so);
+      })
+      .catch(error => console.error("Error fetching user data:", error));
+  }, []);
+
   const handleSubmit = async () => {
     if (!inputValue || inputValue === '')
       return console.log('problem with inputvalue', inputValue)
@@ -46,7 +61,6 @@ function App() {
     setBarPlay(false);
     setShowComponent(true);
   }, []);
-
 
   return (
     <div className='screen' id='game' >

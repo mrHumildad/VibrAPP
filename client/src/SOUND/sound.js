@@ -1,9 +1,9 @@
-import { creaArr } from "./lluvia";
+//import { creaArr } from "./lluvia";
 
 const updateSound = (so) => {
   console.log('ALFONDSO AQUI EMPIEZA TU MAGIA!!!!!!');
   console.log(so)
-  creaArr(so)
+  //creaArr(so)
 }
 
 export default updateSound;

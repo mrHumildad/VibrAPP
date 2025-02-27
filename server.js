@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const levels = require('./levels')
 const bodyParser = require('body-parser');
 const app = express();
@@ -14,7 +15,12 @@ app.use(bodyParser.json());
 const { registerUser, loginUser } = require('./userController');
 const { verifyToken } = require('./authMiddleware');
 
+app.use(express.static(path.join(__dirname, './client/dist')));
+
+
+
 app.get("/user", (req, res) => {
+  console.log('consulting user')
   res.json({ user, so });
 });
 
@@ -33,6 +39,7 @@ app.post('/register', registerUser);
 app.post('/login', loginUser);
 
 app.get("/level/:index", (req, res) => {
+  console.log(req)
   const index = parseInt(req.params.index, 10); // Get index from request
   console.log('getting data from level ', index)
   if (isNaN(index) || index < 0 || index >= levels.length) {
@@ -46,6 +53,10 @@ app.get("/level/:index", (req, res) => {
 // Protected route
 app.get('/dashboard', verifyToken, (req, res) => {
   res.json({ message: `Welcome to the dashboard, ${req.user.username}!` });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
 });
 
 // Start the server

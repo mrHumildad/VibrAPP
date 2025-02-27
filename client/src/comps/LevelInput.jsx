@@ -25,12 +25,16 @@ const BarSelector = ({ options, min, max, step, value, onChange }) => {
 
 const LevelInput = ({ actualLevel, inputValue, setInputValue }) => {
   const [levelData, setLevelData] = useState(null);
-
+  console.log('levelinput', actualLevel);
   useEffect(() => {
     const fetchLevelData = async () => {
+      console.log('sending')
       try {
+      console.log('sending2')
+
         const response = await fetch(`http://localhost:5000/level/${actualLevel}`);
         const data = await response.json();
+        console.log(data);
         setLevelData(data);
       } catch (error) {
         console.error("Error fetching level data:", error);
@@ -70,7 +74,7 @@ const LevelInput = ({ actualLevel, inputValue, setInputValue }) => {
           />
         )}
       </div>
-      {levelData.inputCfg.type !== 'text' && <span>{inputValue}</span>}
+      {levelData?.inputCfg.type !== 'text' && <span>{inputValue}</span>}
     </div>
   );
 };

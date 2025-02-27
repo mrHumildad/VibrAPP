@@ -1,11 +1,11 @@
-import { creaArr } from "../SOUND/lluvia";
+//import { creaArr } from "../SOUND/lluvia";
 const PlayButt = ({so, user, wellcome, barPlay, setUser, setBarPlay, setWellcome, setShowComponent, handleSubmit}) => {
   const playClick = () => {
     console.log('playclick')
     if (wellcome) {
       setWellcome(false);
       console.log('*************initsound: ', so);
-      creaArr(so);
+      //creaArr(so);
     } else {
       handleSubmit();
     }
