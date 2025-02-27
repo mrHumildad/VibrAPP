@@ -1,5 +1,28 @@
 import { useState, useEffect } from "react";
 
+const BarSelector = ({ options, min, max, step, value, onChange }) => {
+  const [internalValue, setInternalValue] = useState(value || min);
+
+  const handleChange = (e) => {
+    const newValue = Number(e.target.value);
+    setInternalValue(newValue);
+    onChange(options ? options[newValue] : newValue);
+  };
+
+  return (
+    <div >
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={options ? options.indexOf(value) : internalValue}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
+
 const LevelInput = ({ actualLevel, inputValue, setInputValue }) => {
   const [levelData, setLevelData] = useState(null);
 
@@ -17,22 +40,23 @@ const LevelInput = ({ actualLevel, inputValue, setInputValue }) => {
     fetchLevelData();
   }, [actualLevel]);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
   return (
     <div className="centered">
       <div id="text">{levelData?.text || "Loading..."}</div>
       <div id="input">
-        {levelData?.inputCfg?.type === "select" ? (
-          <select id={levelData.inputCfg.id} value={inputValue} onChange={handleInputChange}>
-            {levelData.inputCfg.options.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+        {levelData?.inputCfg?.type === "range" || levelData?.inputCfg?.type === "select" ? (
+          <BarSelector
+            min={levelData?.inputCfg?.min || 0}
+            max={
+              levelData?.inputCfg?.type === "select"
+                ? levelData.inputCfg.options.length - 1
+                : levelData?.inputCfg?.max
+            }
+            step={levelData?.inputCfg?.step || 1}
+            value={inputValue}
+            options={levelData?.inputCfg?.type === "select" ? levelData.inputCfg.options : null}
+            onChange={setInputValue}
+          />
         ) : (
           <input
             id={levelData?.inputCfg?.id}
@@ -42,11 +66,11 @@ const LevelInput = ({ actualLevel, inputValue, setInputValue }) => {
             max={levelData?.inputCfg?.max}
             step={levelData?.inputCfg?.step}
             value={inputValue}
-            onChange={handleInputChange}
+            onChange={(e) => setInputValue(e.target.value)}
           />
         )}
       </div>
-      <p>Current Input: {inputValue}</p>
+      {levelData.inputCfg.type !== 'text' && <span>{inputValue}</span>}
     </div>
   );
 };

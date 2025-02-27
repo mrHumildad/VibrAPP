@@ -2,7 +2,9 @@
 
 const MiCanvas = () => {
   return (
-    <canvas id="micanvas"></canvas>
+    <canvas id="micanvas">
+      
+    </canvas>
   );
 }
 

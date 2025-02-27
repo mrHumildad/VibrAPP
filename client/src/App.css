@@ -64,6 +64,7 @@ ul { list-style-type: none; }
 .disabled {
   opacity: 0.3;
   animation: none;
+  background-color: red;
 }
 
 /* Logo Animation */
@@ -137,4 +138,55 @@ ul { list-style-type: none; }
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+}
+
+/***** Track Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--dark);
+  height: 0.5rem;  /* Track height */
+  border-radius: 0.25rem;
+}
+
+/***** Thumb Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  background-color: var(--accent);
+  height: 2rem;  /* Adjust size */
+  width: 2rem;
+  border-radius: 50%;
+  border: 0.4rem solid black;
+  
+  /* ✅ Centers thumb on the track */
+  margin-top: -0.75rem; /* Half of the thumb's height - half of the track's height */
+}
+
+input::placeholder {
+  text-align: center;
+  font-family: "Kode Mono", monospace;
+  font-size: 1rem;
+  background-color: var(--dark);
+  color: var(--accent);
+  padding: vh;
+  opacity: 0.5;
+}
+input {
+  font-family: "Kode Mono", monospace;
+  width: 80%;
+  font-size: 1.2rem;
+  color: var(--accent);
+  text-align: center; /* ✅ Centers typed text */
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
 }

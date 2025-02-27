@@ -6,7 +6,7 @@ const PORT = 5000;
 const cors = require("cors");
 
 let user = []; // Temporary storage for the single user
-let so = { notaBase: 0, numeroDeOctavas: 0, duracion: 0, aroma: "major", mainVol: 0.8, silencios: 0 }; // Initial state
+let so = { notaBase: 0, numeroDeOctavas: 0, duracion: 0, aroma: "major", mainVol: 0.8, silencios: 0, numNubes: 8 }; // Initial state
 
 app.use(cors());
 app.use(bodyParser.json());

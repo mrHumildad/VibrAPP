@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const UserLogs = ({user}) => {
-  console.log(user)
+  //console.log(user)
   return (
     <ul id="userdata">
       <li className="userLog">LV {user.length}

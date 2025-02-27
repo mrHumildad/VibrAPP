@@ -5,6 +5,7 @@ import UserLogs from './comps/UserLogs';
 import ProgressBar from './comps/ProgressBar';
 import LevelInput from './comps/LevelInput';
 import Wellcome from './comps/Wellcome';
+
 import updateSound from './SOUND/sound';
 
 import './App.css'
@@ -15,12 +16,14 @@ function App() {
   const [wellcome, setWellcome] = useState(true);
   const [showComponent, setShowComponent] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [so, setSo] = useState({});
-
-
-
+  const [so, setSo] = useState({ 
+    notaBase: 0, numeroDeOctavas: 0, duracion: 0, aroma: "major", mainVol: 0.8, silencios: 0, numNubes: 8 
+  });
   const handleSubmit = async () => {
+    if (!inputValue || inputValue === '')
+      return console.log('problem with inputvalue', inputValue)
     try {
+      console.log('inputvalue', inputValue)
       const response = await fetch("http://localhost:5000/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,12 +34,11 @@ function App() {
       setInputValue('');
       setSo(data.so);
       setUser(data.user);
-      updateSound()
+      updateSound(so);
       //updateState(data.user, data.so); // Update user and so state in parent component!!!!
     } catch (error) {
       console.error("Error sending data:", error);
     }
-    levelUP();
   };
 
   const handleBarStop = useCallback(() => {
@@ -45,9 +47,6 @@ function App() {
     setShowComponent(true);
   }, []);
 
-  const levelUP = () => {
-
-  }
 
   return (
     <div className='screen' id='game' >
