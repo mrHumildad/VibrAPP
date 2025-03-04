@@ -10,8 +10,7 @@ import updateSound from './SOUND/sound';
 
 import './App.css'
 
-function App() {
-  const [user, setUser] = useState([]);
+function App(user, setUser, userName) {
   const [barPlay, setBarPlay] = useState(true);
   const [wellcome, setWellcome] = useState(true);
   const [showComponent, setShowComponent] = useState(false);
@@ -20,19 +19,22 @@ function App() {
     notaBase: 0, numeroDeOctavas: 0, duracion: 0, aroma: "major", mainVol: 0.8, silencios: 0, numNubes: 8 
   });
 
-  useEffect(() => {
-    fetch("http://localhost:5000/user")
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        console.log("Fetched User Data:", data);
-        setUser(data.user);
-        setSo(data.so);
-      })
-      .catch(error => console.error("Error fetching user data:", error));
-  }, []);
+  /* useEffect(() => {
+    // Only fetch if username is available
+    if (userName) {
+      fetch(`http://localhost:5000/user/${userName}`)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          console.log("Fetched User Data:", data);
+          setUser(data.user);
+          setSo(data.so);
+        })
+        .catch(error => console.error("Error fetching user data:", error));
+    }
+  }, [userName, setUser/*  * */
 
   const handleSubmit = async () => {
     if (!inputValue || inputValue === '')
